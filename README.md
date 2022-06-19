@@ -4,14 +4,14 @@
   <p align="center">
     Build a simple ecommerce website with Laravel.
     <br />
-    <a href="https://github.com/hiskiapp/pwl-uas"><strong>Explore the docs »</strong></a>
+    <a href="https://github.com/hiskiapp/simple-ecommerce"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="https://github.com/hiskiapp/pwl-uas">View Demo</a>
+    <a href="https://github.com/hiskiapp/simple-ecommerce">View Demo</a>
     ·
-    <a href="https://github.com/hiskiapp/pwl-uas/issues">Report Bug</a>
+    <a href="https://github.com/hiskiapp/simple-ecommerce/issues">Report Bug</a>
     ·
-    <a href="https://github.com/hiskiapp/pwl-uas/issues">Request Feature</a>
+    <a href="https://github.com/hiskiapp/simple-ecommerce/issues">Request Feature</a>
   </p>
 </p>
 
@@ -49,8 +49,8 @@ To get a local copy up and running follow these simple example steps.
 
 1. Open the terminal, navigate to your directory (htdocs or public_html).
 ```bash
-git clone https://github.com/hiskiapp/pwl-uas.git
-cd pwl-uas
+git clone https://github.com/hiskiapp/simple-ecommerce.git
+cd simple-ecommerce
 composer install
 npm install && npm run dev
 cp .env.example .env
@@ -80,7 +80,7 @@ php artisan optimize
 You will get the administrator credential and url access like example bellow:
 ```bash
 ::Administrator Credential::
-URL Login: http://localhost/pwl-uas/public/admin/login
+URL Login: http://localhost/simple-ecommerce/public/admin/login
 Email: hi@hiskia.app
 Password: 123456
 ```
