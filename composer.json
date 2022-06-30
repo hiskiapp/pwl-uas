@@ -18,6 +18,7 @@
         "guzzlehttp/guzzle": "^7.0.1",
         "haruncpi/laravel-id-generator": "^1.0",
         "intervention/image": "^2.5",
+        "kavist/rajaongkir": "^1.1",
         "laravel/framework": "^8.12",
         "laravel/tinker": "^2.5",
         "laravel/ui": "^3.2",

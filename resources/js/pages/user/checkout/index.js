@@ -1,6 +1,5 @@
 "use strict";
 
-// Class definition
 var KTEcommerceCheckout = function () {
     // Base elements
     var _wizardEl;
@@ -107,17 +106,17 @@ var KTEcommerceCheckout = function () {
                             }
                         }
                     },
-                    city: {
+                    city_id: {
                         validators: {
                             notEmpty: {
                                 message: 'City is required'
                             }
                         }
                     },
-                    state: {
+                    province_id: {
                         validators: {
                             notEmpty: {
-                                message: 'State is required'
+                                message: 'Province is required'
                             }
                         }
                     },
@@ -127,7 +126,21 @@ var KTEcommerceCheckout = function () {
                                 message: 'Country is required'
                             }
                         }
-                    }
+                    },
+                    shipping_name: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Shipping name is required'
+                            }
+                        }
+                    },
+                    shipping_service: {
+                        validators: {
+                            notEmpty: {
+                                message: 'Shipping service is required'
+                            }
+                        }
+                    },
                 },
                 plugins: {
                     trigger: new FormValidation.plugins.Trigger(),
@@ -177,6 +190,83 @@ var KTEcommerceCheckout = function () {
     };
 }();
 
+var KTSelect = function() {
+    var main = function() {
+        $('#province_id').on('change', function () {
+            var province_id = $(this).val();
+            if (province_id) {
+                $.ajax({
+                    url: `${HOST_URL}/locations/cities`,
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        province_id: province_id
+                    },
+                    success: function (data) {
+                        $('#city_id').empty();
+                        $.each(data, function(key, value) {
+                            $('#city_id').append($("<option></option>").attr("value", value.id).text(value.name));
+                        });
+                    }
+                });
+            }
+        });
+
+        $('.count-cost').on('change', function () {
+            var city_id = $('#city_id').val();
+            var shipping_name = $('#shipping_name').val();
+            if(city_id && shipping_name){
+                $.ajax({
+                    url: `${HOST_URL}/shipping/cost`,
+                    type: "POST",
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    data: {
+                        city_id: city_id,
+                        shipping_name: shipping_name,
+                    },
+                    success: function (data) {
+                        let services = [];
+                        if(data[0]){
+                            services = data[0].costs;
+                        }
+                        $('#shipping_service').empty();
+                        $.each(services, function (index, value) {
+                            $('#shipping_service').append(`
+                                    <option value="${value.service} (${value.cost[0].etd} day)">${value.service} (${value.cost[0].etd} day) - Rp${value.cost[0].value.toLocaleString()}</option>
+                                `);
+                        });
+
+                        $('#shipping_service').trigger('change');
+                    }
+                });
+            }
+        });
+
+        $('#shipping_service').on('change', function () {
+            let text =  $(this).find('option:selected').text();
+            let val = text.split(' - ');
+            let cost = parseInt(val[1].replace('Rp', '').replace(',', '').replace('.', ''));
+            let grand_total = parseInt($('.grand-total').text().replace('Rp', '').replace(',', '').replace('.', ''));
+
+            $('#shipping_cost').val(cost);
+            $('.delivery-fee').text(`Rp${cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`);
+            $('.grand-total').text(`Rp${(grand_total + cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`);
+        });
+    }
+
+    // Public functions
+    return {
+        init: function() {
+            main();
+        }
+    };
+}();
+
 jQuery(document).ready(function () {
     KTEcommerceCheckout.init();
+    KTSelect.init();
 });

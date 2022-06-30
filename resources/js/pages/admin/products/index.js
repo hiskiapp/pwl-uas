@@ -30,6 +30,9 @@ var KTDatatablesDataSourceAjaxServer = function () {
                 data: 'category.name'
             },
             {
+                data: 'weight'
+            },
+            {
                 data: 'stock'
             },
             {
@@ -55,14 +58,28 @@ var KTDatatablesDataSourceAjaxServer = function () {
                 }
             },
             {
+                targets: 4,
+                orderable: true,
+                render: function (data, type, full, meta) {
+                    return data.toLocaleString() + ' Kg';
+                }
+            },
+            {
                 targets: 5,
                 orderable: true,
                 render: function (data, type, full, meta) {
-                    return 'Rp '+data.toLocaleString();
+                    return data.toLocaleString();
                 }
             },
             {
                 targets: 6,
+                orderable: true,
+                render: function (data, type, full, meta) {
+                    return 'Rp'+data.toLocaleString();
+                }
+            },
+            {
+                targets: 7,
                 orderable: true,
                 render: function (data, type, full, meta) {
                     return data.toLocaleString();

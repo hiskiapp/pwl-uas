@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Transaction;
+use App\Models\User;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -16,6 +18,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.index');
+        $totalIncome = Transaction::query()->where('status', 'Done')->sum('total_price');
+        $totalUsers = User::query()->count();
+
+        return view('admin.dashboard.index', compact('totalIncome', 'totalUsers'));
     }
 }

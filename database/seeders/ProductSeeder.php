@@ -28,7 +28,7 @@ class ProductSeeder extends Seeder
 
             $categories = [];
             for ($i = 0; $i < 3; $i++) {
-                $name = $faker->unique()->word;
+                $name = ucwords($faker->unique()->word);
                 $categories[] = [
                     'name' => $name,
                     'slug' => Str::slug($name),
@@ -46,6 +46,7 @@ class ProductSeeder extends Seeder
                     'slug' => Str::slug($name),
                     'name' => $name,
                     'description' => $faker->text(200),
+                    'weight' => $faker->numberBetween(1, 5),
                     'stock' => $faker->numberBetween(0, 100),
                     'price' => $faker->numberBetween(10000, 100000),
                     'seen_total' => $faker->numberBetween(0, 100),

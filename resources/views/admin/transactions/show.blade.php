@@ -37,7 +37,7 @@
                                 <div class="d-flex flex-column flex-root">
                                     <span class="font-weight-bolder mb-2">DELIVERED TO.</span>
                                     <span class="opacity-70">{{$transaction->address1}}
-																<br>{{$transaction->city}}, {{$transaction->state}}, {{$transaction->country}} {{$transaction->postcode}}</span>
+																<br>{{$transaction->city->name}}, {{$transaction->province->name}}, {{$transaction->country}} {{$transaction->postcode}}
                                 </div>
                             </div>
                         </div>
@@ -86,15 +86,15 @@
                                     <tr>
                                         <th class="font-weight-bold text-muted text-uppercase">PAYMENT TYPE</th>
                                         <th class="font-weight-bold text-muted text-uppercase">STATUS</th>
-                                        <th class="font-weight-bold text-muted text-uppercase">UPDATED DATE</th>
+                                        <th class="font-weight-bold text-muted text-uppercase">SHIPPING</th>
                                         <th class="font-weight-bold text-muted text-uppercase text-right">TOTAL PAID</th>
                                     </tr>
                                     </thead>
                                     <tbody>
                                     <tr class="font-weight-bolder">
                                         <td>{{$transaction->paymentMethod->name}}<br>{{$transaction->paymentMethod->account_number}} <br> a/n {{$transaction->paymentMethod->account_owner}}</td>
-                                        <td>{{$transaction->status}}</td>
-                                        <td>{{$transaction->updated_at->format('d M Y H:i')}}</td>
+                                        <td>{{$transaction->status}} <br> Updated at: {{$transaction->updated_at->format('d M Y H:i')}}</td>
+                                        <td>{{$transaction->shipping_name}} - {{$transaction->shipping_service}} <br> Rp{{number_format($transaction->shipping_cost)}}</td>
                                         <td class="text-primary font-size-h3 font-weight-boldest text-right">Rp{{number_format($transaction->total_price)}}</td>
                                     </tr>
                                     </tbody>

@@ -19,6 +19,7 @@ class CreateProductsTable extends Migration
             $table->string('slug')->unique();
             $table->string('name');
             $table->text('description')->nullable();
+            $table->integer('weight')->default(1);
             $table->integer('stock')->default(0);
             $table->integer('price');
             $table->integer('seen_total')->default(0);

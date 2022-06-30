@@ -89,6 +89,16 @@
                                 </div>
                             </div>
                             <div class="form-group row">
+                                <label class="col-3">Weight</label>
+                                <div class="col-9">
+                                    <input class="form-control form-control-solid @error('weight') is-invalid @enderror"
+                                           type="number" name="weight" value="{{ old('weight') }}" required autocomplete="off" />
+                                    @error('weight')
+                                    <div class="invalid-feedback">{{ $message }}</div>
+                                    @enderror
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="col-3">Stock</label>
                                 <div class="col-9">
                                     <input class="form-control form-control-solid @error('stock') is-invalid @enderror"
