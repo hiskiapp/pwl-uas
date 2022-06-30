@@ -15,8 +15,6 @@
   </p>
 </p>
 
-
-
 <!-- TABLE OF CONTENTS -->
 ## Table of Contents
 
@@ -73,14 +71,17 @@ MAIL_FROM_NAME="${APP_NAME}"
 
 3. Install Project
 ```bash
-php artisan key:generate
-php artisan migrate --seed
-php artisan optimize
+php artisan install
 ```
 You will get the administrator credential and url access like example bellow:
 ```bash
 ::Administrator Credential::
 URL Login: http://localhost/simple-ecommerce/public/admin/login
+Email: hi@hiskia.app
+Password: 123456
+
+::Sample User Credential::
+URL Login: http://localhost/simple-ecommerce/public/login
 Email: hi@hiskia.app
 Password: 123456
 ```

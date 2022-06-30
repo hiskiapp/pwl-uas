@@ -21,7 +21,7 @@
                                         <div
                                             class="card-body p-0 rounded px-10 py-15 d-flex align-items-center justify-content-center"
                                             style="background-color: #FFCC69;">
-                                            <img src="{{ asset(Storage::url($product->photo)) }}" class="mw-100 w-200px"
+                                            <img src="{{ $product->photo ? asset(Storage::url($product->photo)) : asset('media/products/11.png') }}" class="mw-100 w-200px"
                                                  style="transform: scale(1.6);">
                                         </div>
                                     </div>
