@@ -61,7 +61,7 @@
                                 <div class="card card-custom gutter-b card-stretch">
                                     <div class="card-body d-flex flex-column rounded bg-light justify-content-between">
                                         <div class="text-center rounded mb-7">
-                                            <img src="{{ asset(Storage::url($product->photo)) }}" class="mw-100 w-200px">
+                                            <img src="{{ $product->photo ? asset(Storage::url($product->photo)) : asset('media/products/11.png') }}" class="mw-100 w-200px">
                                         </div>
                                         <div>
                                             <h4 class="font-size-h5">
