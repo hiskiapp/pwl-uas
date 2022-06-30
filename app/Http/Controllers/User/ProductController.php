@@ -17,9 +17,9 @@ class ProductController extends Controller
      */
     public function show($slug)
     {
-        $product = Product::query()
-            ->where('slug', $slug)
-            ->firstOrFail();
+        $product = Product::where('slug', $slug)->first();
+        ++$product->seen_total;
+        $product->save();
 
         return view('user.products.show', compact('product'));
     }
