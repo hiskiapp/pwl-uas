@@ -18,7 +18,9 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        $totalIncome = Transaction::query()->where('status', 'Done')->sum('total_price');
+        $totalIncome = Transaction::query()->where('status', 'Done')->get()->sum(function ($transaction) {
+            return $transaction->total_price - $transaction->shipping_cost;
+        });
         $totalUsers = User::query()->count();
 
         return view('admin.dashboard.index', compact('totalIncome', 'totalUsers'));
