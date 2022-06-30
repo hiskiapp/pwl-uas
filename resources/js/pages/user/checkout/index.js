@@ -206,8 +206,13 @@ var KTSelect = function() {
                     },
                     success: function (data) {
                         $('#city_id').empty();
+                        var existing_city_id = $('#existing_city_id').val();
                         $.each(data, function(key, value) {
-                            $('#city_id').append($("<option></option>").attr("value", value.id).text(value.name));
+                            if(value.id == existing_city_id){
+                                $('#city_id').append(`<option value="${value.id}" selected>${value.name}</option>`);
+                            }else{
+                                $('#city_id').append(`<option value="${value.id}">${value.name}</option>`);
+                            }
                         });
                     }
                 });
@@ -250,11 +255,11 @@ var KTSelect = function() {
             let text =  $(this).find('option:selected').text();
             let val = text.split(' - ');
             let cost = parseInt(val[1].replace('Rp', '').replace(',', '').replace('.', ''));
-            let grand_total = parseInt($('.grand-total').text().replace('Rp', '').replace(',', '').replace('.', ''));
+            let grand_total = parseInt($('#grand_total').val());
 
             $('#shipping_cost').val(cost);
             $('.delivery-fee').text(`Rp${cost.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`);
-            $('.grand-total').text(`Rp${(grand_total + cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`);
+            $('.grand-total-view').text(`Rp${(grand_total + cost).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}`);
         });
     }
 
@@ -269,4 +274,8 @@ var KTSelect = function() {
 jQuery(document).ready(function () {
     KTEcommerceCheckout.init();
     KTSelect.init();
+
+    if($('#existing_city_id').val() !== ''){
+        $('#province_id').trigger('change');
+    }
 });
