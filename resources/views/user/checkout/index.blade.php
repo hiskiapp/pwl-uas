@@ -87,6 +87,9 @@
                                         <form class="form mt-0 mt-lg-10 fv-plugins-bootstrap fv-plugins-framework"
                                               id="kt_form" method="POST" action="{{route('user.checkout.store')}}">
                                             @csrf
+                                            <input type="hidden" value="{{$cartSubtotal}}" name="grand_total" id="grand_total">
+                                            <input type="hidden" name="existing_city_id" id="existing_city_id" value="{{old('city_id', optional($transactionExisting)->city_id)}}">
+                                            <input type="hidden" value="" name="shipping_cost" id="shipping_cost">
                                             <!--begin: Wizard Step 1-->
                                             <div class="pb-5" data-wizard-type="step-content"
                                                  data-wizard-state="current">
@@ -207,7 +210,6 @@
                                                         </div>
                                                         <!--end::Select-->
                                                     </div>
-                                                    <input type="hidden" value="" name="shipping_cost" id="shipping_cost">
                                                 </div>
                                             </div>
                                             <!--end: Wizard Step 1-->
@@ -291,7 +293,7 @@
                                                                 <td class="border-0 pt-0 font-weight-bolder font-size-h5 text-right">
                                                                     Grand Total
                                                                 </td>
-                                                                <td class="border-0 pt-0 font-weight-bolder font-size-h5 text-success text-right pr-0 grand-total">
+                                                                <td class="border-0 pt-0 font-weight-bolder font-size-h5 text-success text-right pr-0 grand-total-view">
                                                                     Rp{{number_format($cartSubtotal)}}
                                                                 </td>
                                                             </tr>

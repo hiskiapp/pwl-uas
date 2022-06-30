@@ -86,9 +86,6 @@
                                 <td class="font-weight-bolder font-size-h4 text-right">Subtotal</td>
                                 <td class="font-weight-bolder font-size-h4 text-right text-subtotal">Rp{{number_format($cartSubtotal)}}</td>
                             </tr>
-                            <tr>
-                                <td colspan="4" class="border-0 text-muted text-right pt-0">Excludes Delivery.</td>
-                            </tr>
                             @if($cartItems->count() > 0)
                             <tr>
                                 <td colspan="4" class="border-0 text-right pt-10">
