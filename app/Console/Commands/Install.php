@@ -45,13 +45,20 @@ class Install extends Command
             $this->call('migrate:fresh');
             $this->call('db:seed');
             $this->call('optimize');
-            $this->call('route:cache');
+
             if(is_dir(base_path('public/storage'))){
                 rmdir(base_path('public/storage'));
             }
             $this->call('storage:link');
+
+            if(!is_dir(base_path('public/storage/uploads/files')) && !mkdir($concurrentDirectory = base_path('public/storage/uploads/files'), 0775, true) && !is_dir($concurrentDirectory)) {
+                throw new \RuntimeException(sprintf('Directory "%s" was not created', $concurrentDirectory));
+            }
             copy(base_path('public/media/products/11.png'), base_path('public/storage/uploads/files/sample-product.png'));
             copy(base_path('public/media/client-logos/logo1.png'), base_path('public/storage/uploads/files/sample-icon.png'));
+
+            $this->call('route:clear');
+
             $this->info('Installing Is Completed ! Thank You :)');
             $this->info('--');
             $this->info("::Administrator Credential::\nURL Login: http://localhost/simple-ecommerce/public/admin/login\nEmail: hi@hiskia.app\nPassword: 123456");
