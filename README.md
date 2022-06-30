@@ -54,7 +54,7 @@ npm install && npm run dev
 cp .env.example .env
 ```
 
-2. Setting the database, smtp configuration, open .env file at project root directory
+2. Setting the database, smtp configuration, rajaongkir key, open .env file at project root directory
 ```
 DB_DATABASE=
 DB_USERNAME=
@@ -67,6 +67,9 @@ MAIL_PASSWORD=
 MAIL_ENCRYPTION=
 MAIL_FROM_ADDRESS=
 MAIL_FROM_NAME="${APP_NAME}"
+
+RAJAONGKIR_API_KEY=
+RAJAONGKIR_PACKAGE=
 ```
 
 3. Install Project
