@@ -14,14 +14,18 @@ class Transaction extends Model
         'code',
         'total_price',
         'total_item',
+        'total_weight',
         'payment_method_id',
         'status',
         'address1',
         'address2',
         'postcode',
-        'city',
-        'state',
+        'city_id',
+        'province_id',
         'country',
+        'shipping_name',
+        'shipping_service',
+        'shipping_cost',
     ];
 
     public function user(): \Illuminate\Database\Eloquent\Relations\BelongsTo
@@ -39,7 +43,17 @@ class Transaction extends Model
         return $this->hasMany(TransactionItem::class);
     }
 
-    protected static function boot()
+    public function city(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(City::class);
+    }
+
+    public function province(): \Illuminate\Database\Eloquent\Relations\BelongsTo
+    {
+        return $this->belongsTo(Province::class);
+    }
+
+    protected static function boot() : void
     {
         parent::boot();
 

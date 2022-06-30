@@ -89,8 +89,8 @@ var KTDatatablesSearchOptionsAdvancedSearch = function () {
                                 'title': 'Shipping',
                                 'class': ' label-light-warning'
                             },
-                            'Success': {
-                                'title': 'Success',
+                            'Done': {
+                                'title': 'Done',
                                 'class': ' label-light-success'
                             },
                             'Failed': {

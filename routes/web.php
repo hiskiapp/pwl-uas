@@ -59,6 +59,7 @@ Route::group(['namespace' => 'User', 'as' => 'user.'], function(){
         Route::resource('products', 'ProductController')->only('show');
         Route::resource('cart', 'CartController')->except('show', 'edit');
         Route::resource('checkout', 'CheckoutController')->only('index', 'store');
+        Route::post('shipping/cost', 'ShippingController@cost')->name('shipping.cost');
         Route::resource('transactions', 'TransactionController')->only('index', 'show');
         Route::group(['prefix' => 'profile', 'as' => 'profile.'], function() {
             Route::get('/', 'ProfileController@index')->name('index');
@@ -71,3 +72,6 @@ Route::group(['namespace' => 'User', 'as' => 'user.'], function(){
         });
     });
 });
+
+// Global
+Route::post('locations/cities', 'LocationController@cities')->name('locations.cities');

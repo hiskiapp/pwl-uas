@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Product;
 use App\Models\Transaction;
+use App\Models\TransactionItem;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
@@ -27,7 +29,7 @@ class TransactionController extends Controller
      */
     public function show($id)
     {
-        $transaction = Transaction::with(['user', 'paymentMethod', 'transactionItems' => function($q){
+        $transaction = Transaction::with(['user', 'paymentMethod', 'city', 'province', 'transactionItems' => function ($q) {
             $q->with('product');
         }])->findOrFail($id);
 
@@ -41,7 +43,9 @@ class TransactionController extends Controller
      */
     public function waiting($id): \Illuminate\Http\JsonResponse
     {
-        Transaction::find($id)->update(['status' => 'Waiting Payment', 'updated_at' => now()]);
+        $transaction = Transaction::find($id);
+        self::addStocks($transaction);
+        $transaction->update(['status' => 'Waiting Payment', 'updated_at' => now()]);
 
         return response()->json(true);
     }
@@ -53,7 +57,9 @@ class TransactionController extends Controller
      */
     public function shipping($id): \Illuminate\Http\JsonResponse
     {
-        Transaction::find($id)->update(['status' => 'Shipping', 'updated_at' => now()]);
+        $transaction = Transaction::find($id);
+        self::subStocks($transaction);
+        $transaction->update(['status' => 'Shipping', 'updated_at' => now()]);
 
         return response()->json(true);
     }
@@ -65,7 +71,9 @@ class TransactionController extends Controller
      */
     public function done($id): \Illuminate\Http\JsonResponse
     {
-        Transaction::find($id)->update(['status' => 'Done', 'updated_at' => now()]);
+        $transaction = Transaction::find($id);
+        self::subStocks($transaction);
+        $transaction->update(['status' => 'Done', 'updated_at' => now()]);
 
         return response()->json(true);
     }
@@ -77,8 +85,34 @@ class TransactionController extends Controller
      */
     public function failed($id): \Illuminate\Http\JsonResponse
     {
-        Transaction::find($id)->update(['status' => 'Failed', 'updated_at' => now()]);
+        $transaction = Transaction::find($id);
+        self::addStocks($transaction);
+        $transaction->update(['status' => 'Failed', 'updated_at' => now()]);
 
         return response()->json(true);
+    }
+
+    private static function subStocks(Transaction $transaction): void
+    {
+        if (in_array($transaction->status, ['Waiting Payment', 'Failed'])) {
+            $items = TransactionItem::query()->where('transaction_id', $transaction->id)->get();
+            foreach ($items as $item) {
+                $product = Product::find($item->product_id);
+                $product->stock -= $item->quantity;
+                $product->save();
+            }
+        }
+    }
+
+    private static function addStocks(Transaction $transaction): void
+    {
+        if (in_array($transaction->status, ['Shipping', 'Done'])) {
+            $items = TransactionItem::query()->where('transaction_id', $transaction->id)->get();
+            foreach ($items as $item) {
+                $product = Product::find($item->product_id);
+                $product->stock += $item->quantity;
+                $product->save();
+            }
+        }
     }
 }

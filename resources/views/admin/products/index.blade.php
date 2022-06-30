@@ -45,6 +45,7 @@
                 <th>Photo</th>
                 <th>Name</th>
                 <th>Category</th>
+                <th>Weight</th>
                 <th>Stock</th>
                 <th>Price</th>
                 <th>Seen Total</th>

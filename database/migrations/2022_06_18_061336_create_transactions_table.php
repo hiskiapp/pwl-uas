@@ -19,17 +19,18 @@ class CreateTransactionsTable extends Migration
             $table->string('code');
             $table->bigInteger('total_price');
             $table->integer('total_item');
+            $table->integer('total_weight');
             $table->foreignId('payment_method_id');
             $table->string('status')->nullable();
-
-            // Address
             $table->string('address1')->nullable();
             $table->string('address2')->nullable();
             $table->string('postcode')->nullable();
-            $table->string('city')->nullable();
-            $table->string('state')->nullable();
-            $table->string('country')->nullable();
-
+            $table->unsignedBigInteger('city_id')->nullable();
+            $table->unsignedBigInteger('province_id')->nullable();
+            $table->string('country')->default('Indonesia');
+            $table->string('shipping_name')->nullable();
+            $table->string('shipping_service')->nullable();
+            $table->integer('shipping_cost')->nullable();
             $table->timestamps();
         });
     }

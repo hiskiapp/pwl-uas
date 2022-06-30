@@ -116,11 +116,19 @@
                                                     <div class="col-xl-6">
                                                         <!--begin::Input-->
                                                         <div class="form-group fv-plugins-icon-container">
-                                                            <label>Postcode</label>
-                                                            <input type="text"
-                                                                   class="form-control form-control-solid form-control-lg"
-                                                                   name="postcode" placeholder="Postcode" value="{{old('postcode', optional($transactionExisting)->postcode)}}">
-                                                            <span class="form-text text-muted">Please enter your Postcode.</span>
+                                                            <label>Province</label>
+                                                            <select class="form-control form-control-solid form-control-lg"
+                                                                    name="province_id" id="province_id">
+                                                                <option value="">Select Province</option>
+                                                                @foreach($provinces as $province)
+                                                                    <option value="{{$province->id}}"
+                                                                            {{old('province_id', optional($transactionExisting)->province_id) === $province->id ? 'selected' : ''}}>
+                                                                        {{$province->name}}
+                                                                    </option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span
+                                                                class="form-text text-muted">Please enter your Province.</span>
                                                             <div class="fv-plugins-message-container"></div>
                                                         </div>
                                                         <!--end::Input-->
@@ -129,9 +137,10 @@
                                                         <!--begin::Input-->
                                                         <div class="form-group fv-plugins-icon-container">
                                                             <label>City</label>
-                                                            <input type="text"
-                                                                   class="form-control form-control-solid form-control-lg"
-                                                                   name="city" placeholder="City" value="{{old('city', optional($transactionExisting)->city)}}">
+                                                            <select class="form-control form-control-solid form-control-lg count-cost"
+                                                                    name="city_id" id="city_id">
+                                                                <option value="">Select City</option>
+                                                            </select>
                                                             <span
                                                                 class="form-text text-muted">Please enter your City.</span>
                                                             <div class="fv-plugins-message-container"></div>
@@ -141,32 +150,64 @@
                                                 </div>
                                                 <div class="row">
                                                     <div class="col-xl-6">
-                                                        <!--begin::Input-->
-                                                        <div class="form-group fv-plugins-icon-container">
-                                                            <label>State</label>
-                                                            <input type="text"
-                                                                   class="form-control form-control-solid form-control-lg"
-                                                                   name="state" placeholder="State" value="{{old('state', optional($transactionExisting)->state)}}">
-                                                            <span
-                                                                class="form-text text-muted">Please enter your State.</span>
-                                                            <div class="fv-plugins-message-container"></div>
-                                                        </div>
-                                                        <!--end::Input-->
-                                                    </div>
-                                                    <div class="col-xl-6">
                                                         <!--begin::Select-->
                                                         <div class="form-group fv-plugins-icon-container">
                                                             <label>Country</label>
                                                             <select name="country"
-                                                                    class="form-control form-control-solid form-control-lg">
-                                                                <option value="">Select</option>
-                                                                <option value="ID" @if(old('country', optional($transactionExisting)->country) == 'ID') selected @endif>Indonesia</option>
-                                                                <option value="SG" @if(old('country', optional($transactionExisting)->country) == 'SG') selected @endif>Singapore</option>
+                                                                    class="form-control form-control-solid form-control-lg" readonly="readonly">
+                                                                <option value="" disabled>Select</option>
+                                                                <option value="Indonesia" selected>Indonesia</option>
                                                             </select>
                                                             <div class="fv-plugins-message-container"></div>
                                                         </div>
                                                         <!--end::Select-->
                                                     </div>
+                                                    <div class="col-xl-6">
+                                                        <!--begin::Input-->
+                                                        <div class="form-group fv-plugins-icon-container">
+                                                            <label>Postcode</label>
+                                                            <input type="text"
+                                                                   class="form-control form-control-solid form-control-lg"
+                                                                   name="postcode" placeholder="Postcode" value="{{old('postcode', optional($transactionExisting)->postcode)}}">
+                                                            <span class="form-text text-muted">Please enter your Postcode.</span>
+                                                            <div class="fv-plugins-message-container"></div>
+                                                        </div>
+                                                        <!--end::Input-->
+                                                    </div>
+                                                </div>
+                                                <div class="row">
+                                                    <div class="col-xl-6">
+                                                        <!--begin::Select-->
+                                                        <div class="form-group fv-plugins-icon-container">
+                                                            <label>Shipping Name</label>
+                                                            <select name="shipping_name" id="shipping_name"
+                                                                    class="form-control form-control-solid form-control-lg count-cost" readonly="readonly">
+                                                                <option value="">Select</option>
+                                                                @foreach($couriers as $courier)
+                                                                    <option value="{{$courier}}" {{old('shipping_name') === $courier ? 'selected' : ''}}>{{strtoupper($courier)}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <span
+                                                                class="form-text text-muted">Please enter your Courier.</span>
+                                                            <div class="fv-plugins-message-container"></div>
+                                                        </div>
+                                                        <!--end::Select-->
+                                                    </div>
+                                                    <div class="col-xl-6">
+                                                        <!--begin::Select-->
+                                                        <div class="form-group fv-plugins-icon-container">
+                                                            <label>Shipping Service</label>
+                                                            <select name="shipping_service" id="shipping_service"
+                                                                    class="form-control form-control-solid form-control-lg" readonly="readonly">
+                                                                <option value="">Select</option>
+                                                            </select>
+                                                            <span
+                                                                class="form-text text-muted">Please enter your Courier.</span>
+                                                            <div class="fv-plugins-message-container"></div>
+                                                        </div>
+                                                        <!--end::Select-->
+                                                    </div>
+                                                    <input type="hidden" value="" name="shipping_cost" id="shipping_cost">
                                                 </div>
                                             </div>
                                             <!--end: Wizard Step 1-->
@@ -242,10 +283,15 @@
                                                             @endforeach
                                                             <tr>
                                                                 <td colspan="2" class="border-0 pt-0"></td>
+                                                                <td class="border-0 pt-0 font-weight-bolder text-right">Delivery Fees</td>
+                                                                <td class="border-0 pt-0 font-weight-bolder text-right pr-0 delivery-fee">Rp0</td>
+                                                            </tr>
+                                                            <tr>
+                                                                <td colspan="2" class="border-0 pt-0"></td>
                                                                 <td class="border-0 pt-0 font-weight-bolder font-size-h5 text-right">
                                                                     Grand Total
                                                                 </td>
-                                                                <td class="border-0 pt-0 font-weight-bolder font-size-h5 text-success text-right pr-0">
+                                                                <td class="border-0 pt-0 font-weight-bolder font-size-h5 text-success text-right pr-0 grand-total">
                                                                     Rp{{number_format($cartSubtotal)}}
                                                                 </td>
                                                             </tr>
@@ -260,6 +306,7 @@
                                                 <div class="text-dark-50 line-height-lg">
                                                     <div>Overnight Delivery with Regular Packaging</div>
                                                     <div>Preferred Morning (8:00AM - 11:00AM) Delivery</div>
+                                                    <div>Will be Sent from {{$cityOrigin->name}}, {{$cityOrigin->province->name}}, Indonesia</div>
                                                 </div>
                                                 <!--end::Section-->
                                             </div>
