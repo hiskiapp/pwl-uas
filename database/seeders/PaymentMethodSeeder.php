@@ -22,9 +22,9 @@ class PaymentMethodSeeder extends Seeder
             $name = ucwords($faker->name);
             $paymentMethods[] = [
                 'icon' => 'uploads/files/sample-icon.png',
-                'name' => $name,
+                'name' => $bank,
                 'account_number' => $faker->numberBetween(100000000, 999999999),
-                'account_owner' => $bank,
+                'account_owner' => $name,
                 'created_at' => now(),
                 'updated_at' => now(),
             ];
