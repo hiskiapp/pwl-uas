@@ -206,6 +206,8 @@
                                                             </select>
                                                             <span
                                                                 class="form-text text-muted">Please enter your Courier.</span>
+                                                            <span
+                                                                class="form-text text-muted">Weight Total: {{$weightTotal}} Kg.</span>
                                                             <div class="fv-plugins-message-container"></div>
                                                         </div>
                                                         <!--end::Select-->

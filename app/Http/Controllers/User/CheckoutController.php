@@ -43,6 +43,9 @@ class CheckoutController extends Controller
         }
 
         $cartSubtotal = cart_subtotal();
+        $weightTotal = $cartItems->sum(function ($item) {
+            return $item->product->weight;
+        });
         $transactionExisting = Transaction::query()->orderBy('id', 'desc')->first();
         $provinces = Province::query()->get();
         $paymentMethods = PaymentMethod::query()->orderBy('name', 'asc')->get();
@@ -51,6 +54,7 @@ class CheckoutController extends Controller
         return view('user.checkout.index', compact(
             'cartItems',
             'cartSubtotal',
+            'weightTotal',
             'transactionExisting',
             'provinces',
             'paymentMethods',
