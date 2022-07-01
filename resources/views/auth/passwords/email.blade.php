@@ -17,8 +17,8 @@
                 </a>
                 <!--end::Aside Header-->
                 <!--begin::Aside Title-->
-                <h3 class="font-weight-bolder text-center font-size-h4 text-dark-50 line-height-xl">Whatsapp API Gateway
-                    <br /> Terbaik &amp; Terpercaya</h3>
+                <h3 class="font-weight-bolder text-center font-size-h4 text-dark-50 line-height-xl">UAS Pemrograman Web Lanjut
+                    <br /> Oleh: Hiskia Anggi Puji Pratama <br />NIM: A11.2020.12730</h3>
                 <!--end::Aside Title-->
             </div>
             <!--end::Aside Top-->
