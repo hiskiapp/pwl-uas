@@ -23,7 +23,7 @@ Route::group(['namespace' => 'Admin', 'prefix' => 'admin', 'as' => 'admin.'], fu
     Route::group(['middleware' => 'auth:admin'], function() {
         Route::get('/', 'DashboardController@index')->name('dashboard');
         Route::resource('admins', 'AdminController');
-        Route::resource('users', 'UserController');
+        Route::resource('users', 'UserController')->except('show');
         Route::resource('categories', 'CategoryController')->except('show');
         Route::resource('products', 'ProductController');
         Route::resource('payment-methods', 'PaymentMethodController')->except('show');
