@@ -26,16 +26,11 @@
                             <h3 class="font-weight-bolder text-dark font-size-h2 font-size-h1-lg">Sign In</h3>
                         </div>
                         <!--begin::Title-->
-                        <p class="text-muted font-weight-bold font-size-h6">
-                            Login demo: <br />
-                            Email: <span class="text-primary">hi@hiskia.app</span> <br />
-                            Password: <span class="text-primary">123456</span>
-                        </p>
                         <!--begin::Form group-->
                         <div class="form-group">
                             <label class="font-size-h6 font-weight-bolder text-dark">Email Address</label>
                             <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0"
-                                type="email" name="email" placeholder="Your Email" autocomplete="off" />
+                                type="email" name="email" placeholder="Your Email" autocomplete="off" value="{{ old('email', 'hi@hiskia.app') }}" />
                         </div>
                         <!--end::Form group-->
                         <!--begin::Form group-->
@@ -44,7 +39,7 @@
                                 <label class="font-size-h6 font-weight-bolder text-dark pt-5">Password</label>
                             </div>
                             <input class="form-control form-control-solid h-auto py-7 px-6 rounded-lg border-0"
-                                type="password" name="password" placeholder="Your Password" autocomplete="off" />
+                                type="password" name="password" value="{{ old('password') ? '' : '123456' }}" placeholder="Your Password" autocomplete="off" />
                         </div>
                         <!--end::Form group-->
                         <!--begin::Action-->
