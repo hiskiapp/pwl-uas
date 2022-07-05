@@ -52,17 +52,12 @@
                                     Account</a></div>
                         </div>
                         <!--begin::Title-->
-                        <p class="text-muted font-weight-bold font-size-h6">
-                            Login demo: <br />
-                            Email: <span class="text-primary">hi@hiskia.app</span> <br />
-                            Password: <span class="text-primary">123456</span>
-                        </p>
                         <!--begin::Form group-->
                         <div class="form-group">
                             <label class="font-size-h6 font-weight-bolder text-dark">Your Email</label>
                             <input
                                 class="form-control h-auto py-7 px-6 rounded-lg border-0 @error('email') is-invalid @enderror"
-                                type="email" name="email" value="{{ old('email') }}" placeholder="Your Email" autocomplete="off" />
+                                type="email" name="email" value="{{ old('email', 'hi@hiskia.app') }}" placeholder="Your Email" autocomplete="off" />
                             @error('email')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
@@ -80,7 +75,7 @@
                             </div>
                             <input
                                 class="form-control h-auto py-7 px-6 rounded-lg border-0 @error('password') is-invalid @enderror"
-                                type="password" name="password" placeholder="Your Password" autocomplete="off" />
+                                type="password" name="password" placeholder="Your Password" autocomplete="off" value="{{old('password') ? '' : '123456'}}" />
                             @error('password')
                             <span class="invalid-feedback" role="alert">
                                 <strong>{{ $message }}</strong>
